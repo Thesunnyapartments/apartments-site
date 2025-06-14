@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Τα Διαμερίσματά Μου</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+  <header>
+    <h1>Καλώς ήρθατε στα Διαμερίσματά μας!</h1>
+    <p>Επικοινωνία: 6972499950 | email: georgiobin@yahoo.gr</p>
+  </header>
+
+ <nav>
+  <button onclick="showPhotos(1)">📸 Φωτογραφίες Διαμερίσματος 1</button>
+  <button onclick="showInfo(1)">ℹ️ Πληροφορίες Διαμερίσματος 1</button>
+  <button onclick="showPhotos(2)">📸 Φωτογραφίες Διαμερίσματος 2</button>
+  <button onclick="showInfo(2)">ℹ️ Πληροφορίες Διαμερίσματος 2</button>
+  <button onclick="showFacilities()">🛏️ Παροχές Διαμερισμάτων</button>
+
+  <br><br>
+  <button onclick="setLanguage('el')">Ελληνικά</button>
+  <button onclick="setLanguage('en')">English</button>
+</nav>
+  <main>
+    <div id="apartment-details">
+      <!-- Εδώ θα εμφανίζονται οι φωτογραφίες και οι πληροφορίες -->
+    </div>
+  </main>
+
+  <section id="contact">
+  <h2>Επικοινωνήστε μαζί μας</h2>
+  <form id="contact-form">
+    <label for="name">Όνομα:</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="message">Μήνυμα:</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
+    <button type="submit">Αποστολή</button>
+  </form>
+  <p id="form-response"></p>
+</section>
+<section id="map">
+  <h2>Τοποθεσία</h2>
+  <div style="width:100%; height:400px;">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1359.6625222564733!2d20.277602203506483!3d39.4969048065169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135b7f01f1f9d62f%3A0x2f77e1fb38054d80!2s%CE%A4he%20Sunny%20Apartments!5e1!3m2!1sel!2sgr!4v1749903351868!5m2!1sel!2sgr"
+      width="100%"
+      height="100%"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+<script src="script.js"></script>
+<script>
+  function showPhotos(id) {
+    const details = document.getElementById("apartment-details");
+    let content = '';
+
+    if (id === 1) {
+      content = `
+        <h2>Φωτογραφίες Διαμερίσματος 1</h2>
+        <a href="images/apt1-1.jpg" data-lightbox="apt1"><img src="images/apt1-1.jpg" width="200" /></a>
+        <a href="images/apt1-2.jpg" data-lightbox="apt1"><img src="images/apt1-2.jpg" width="200" /></a>
+      `;
+    } else if (id === 2) {
+      content = `
+        <h2>Φωτογραφίες Διαμερίσματος 2</h2>
+        <a href="images/apt2-1.jpg" data-lightbox="apt2"><img src="images/apt2-1.jpg" width="200" /></a>
+        <a href="images/apt2-2.jpg" data-lightbox="apt2"><img src="images/apt2-2.jpg" width="200" /></a>
+      `;
+    }
+
+    details.innerHTML = content;
+  }
+
+  function showInfo(id) {
+    const details = document.getElementById("apartment-details");
+    let content = '';
+
+    if (id === 1) {
+      content = `
+        <h2>Πληροφορίες Διαμερίσματος 1</h2>
+        <p>Το The Sunny Apartments είναι μια εξαιρετική επιλογή για τη διαμονή σου στην Ηγουμενίτσα. Προσφέρει άνεση και ιδανική τοποθεσία.</p>
+      `;
+    } else if (id === 2) {
+      content = `
+        <h2>Πληροφορίες Διαμερίσματος 2</h2>
+        <p>Ευρύχωρο και φωτεινό διαμέρισμα με όλες τις σύγχρονες ανέσεις για άνετη διαμονή κοντά στο κέντρο και τη φύση.</p>
+      `;
+    }
+
+    details.innerHTML = content;
+  }
+
+  function showFacilities() {
+    const details = document.getElementById("apartment-details");
+    details.innerHTML = `
+      <h2>Παροχές Διαμερισμάτων</h2>
+      <ul>
+        <li>Δωρεάν Wi-Fi</li>
+        <li>Κλιματισμός</li>
+        <li>Ιδιωτικό πάρκινγκ</li>
+        <li>Πλήρως εξοπλισμένη κουζίνα</li>
+        <li>Μπαλκόνι με θέα</li>
+        <li>Καθιστικό & Τηλεόραση</li>
+      </ul>
+    `;
+  }
+
+  function setLanguage(lang) {
+    alert("Αλλαγή γλώσσας σε: " + lang);
+    // Εδώ μπορείς αργότερα να προσθέσεις πραγματική αλλαγή περιεχομένου
+  }
+</script>
+
+</body>
+</html>
