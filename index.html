@@ -7,6 +7,46 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
 
+  <style>
+    /* Στυλ για τις παροχές - accordion */
+    #facilities-section {
+      margin-top: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #facilities-section h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    #lang-buttons {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    #lang-buttons button {
+      margin: 0 5px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    .accordion-item {
+      border-bottom: 1px solid #ddd;
+    }
+    .accordion-title {
+      background: #f1f1f1;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: bold;
+      user-select: none;
+    }
+    .accordion-content {
+      padding: 10px 15px;
+      display: none;
+      white-space: pre-line; /* για να σέβεται τα νέα γραμμής */
+    }
+    .accordion-content.show {
+      display: block;
+    }
+  </style>
 </head>
 
 <body>
@@ -16,118 +56,411 @@
     <p>Επικοινωνία: 6972499950 | email: georgiobin@yahoo.gr</p>
   </header>
 
- <nav>
-  <button onclick="showPhotos(1)">📸 Φωτογραφίες Διαμερίσματος 1</button>
-  <button onclick="showInfo(1)">ℹ️ Πληροφορίες Διαμερίσματος 1</button>
-  <button onclick="showPhotos(2)">📸 Φωτογραφίες Διαμερίσματος 2</button>
-  <button onclick="showInfo(2)">ℹ️ Πληροφορίες Διαμερίσματος 2</button>
-  <button onclick="showFacilities()">🛏️ Παροχές Διαμερισμάτων</button>
+  <nav>
+    <button onclick="showPhotos(1)">📸 Φωτογραφίες Διαμερίσματος 1</button>
+    <button onclick="showInfo(1)">ℹ️ Πληροφορίες Διαμερίσματος 1</button>
+    <button onclick="showPhotos(2)">📸 Φωτογραφίες Διαμερίσματος 2</button>
+    <button onclick="showInfo(2)">ℹ️ Πληροφορίες Διαμερίσματος 2</button>
+    <button onclick="showFacilities()">🛏️ Παροχές Διαμερισμάτων</button>
 
-  <br><br>
-  <button onclick="setLanguage('el')">Ελληνικά</button>
-  <button onclick="setLanguage('en')">English</button>
-</nav>
+    <br /><br />
+    <button onclick="setLanguage('el')">Ελληνικά</button>
+    <button onclick="setLanguage('en')">English</button>
+  </nav>
+
   <main>
     <div id="apartment-details">
       <!-- Εδώ θα εμφανίζονται οι φωτογραφίες και οι πληροφορίες -->
+      <p>Παρακαλώ επέλεξε ένα διαμέρισμα.</p>
     </div>
+
+    <!-- Εδώ θα φορτώνουμε τις παροχές -->
+    <section id="facilities-section" style="display:none;">
+      <div id="lang-buttons">
+        <button onclick="renderFacilities('el')">Ελληνικά</button>
+        <button onclick="renderFacilities('en')">English</button>
+      </div>
+      <h2 id="facilities-title">Παροχές Διαμερισμάτων</h2>
+      <div id="facilities-accordion"></div>
+    </section>
   </main>
 
   <section id="contact">
-  <h2>Επικοινωνήστε μαζί μας</h2>
-  <form id="contact-form">
-    <label for="name">Όνομα:</label>
-    <input type="text" id="name" name="name" required />
+    <h2>Επικοινωνήστε μαζί μας</h2>
+    <form id="contact-form">
+      <label for="name">Όνομα:</label>
+      <input type="text" id="name" name="name" required />
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
 
-    <label for="message">Μήνυμα:</label>
-    <textarea id="message" name="message" rows="5" required></textarea>
+      <label for="message">Μήνυμα:</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
 
-    <button type="submit">Αποστολή</button>
-  </form>
-  <p id="form-response"></p>
-</section>
-<section id="map">
-  <h2>Τοποθεσία</h2>
-  <div style="width:100%; height:400px;">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1359.6625222564733!2d20.277602203506483!3d39.4969048065169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135b7f01f1f9d62f%3A0x2f77e1fb38054d80!2s%CE%A4he%20Sunny%20Apartments!5e1!3m2!1sel!2sgr!4v1749903351868!5m2!1sel!2sgr"
-      width="100%"
-      height="100%"
-      style="border:0;"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
-</section>
+      <button type="submit">Αποστολή</button>
+    </form>
+    <p id="form-response"></p>
+  </section>
 
+  <section id="map">
+    <h2>Τοποθεσία</h2>
+    <div style="width:100%; height:400px;">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1359.6625222564733!2d20.277602203506483!3d39.4969048065169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135b7f01f1f9d62f%3A0x2f77e1fb38054d80!2s%CE%A4he%20Sunny%20Apartments!5e1!3m2!1sel!2sgr!4v1749903351868!5m2!1sel!2sgr"
+        width="100%"
+        height="100%"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-<script src="script.js"></script>
-<script>
-  function showPhotos(id) {
-    const details = document.getElementById("apartment-details");
-    let content = '';
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+  
+  <script>
+    // Apartments data
+    const apartments = {
+      1: {
+        photos: [
+          "images/The sunny/2.jpg",
+          "images/The sunny/5.jpg",
+          "images/The sunny/6.jpg"
+        ],
+        info: {
+          el: "Διαμέρισμα 1: Κοντά στο κέντρο, πλήρως εξοπλισμένο, Wi-Fi, κουζίνα.",
+          en: "Apartment 1: Close to downtown, fully equipped, Wi-Fi, kitchen."
+        }
+      },
+      2: {
+        photos: [
+          "images/Deluxe/3.jpg",
+          "images/Deluxe/8.jpg",
+          "images/Deluxe/9.jpg"
+        ],
+        info: {
+          el: "Διαμέρισμα 2: Πλήρως ανακαινισμένο, κοντά στην παραλία, με θέα.",
+          en: "Apartment 2: Fully renovated, near the beach, with view."
+        }
+      }
+    };
 
-    if (id === 1) {
-      content = `
-        <h2>Φωτογραφίες Διαμερίσματος 1</h2>
-        <a href="images/apt1-1.jpg" data-lightbox="apt1"><img src="images/apt1-1.jpg" width="200" /></a>
-        <a href="images/apt1-2.jpg" data-lightbox="apt1"><img src="images/apt1-2.jpg" width="200" /></a>
-      `;
-    } else if (id === 2) {
-      content = `
-        <h2>Φωτογραφίες Διαμερίσματος 2</h2>
-        <a href="images/apt2-1.jpg" data-lightbox="apt2"><img src="images/apt2-1.jpg" width="200" /></a>
-        <a href="images/apt2-2.jpg" data-lightbox="apt2"><img src="images/apt2-2.jpg" width="200" /></a>
-      `;
+    let lang = 'el';  // Αρχικά Ελληνικά
+
+    // Μεταφράσεις για το UI
+    const translations = {
+      el: {
+        welcome: "Καλώς ήρθατε στα Διαμερίσματά μας!",
+        contact: "Επικοινωνία: 6972499950 | email: georgiobin@yahoo.gr",
+        contactUs: "Επικοινωνήστε μαζί μας",
+        name: "Όνομα:",
+        email: "Email:",
+        message: "Μήνυμα:",
+        send: "Αποστολή",
+        location: "Τοποθεσία",
+        photos: "Φωτογραφίες Διαμερίσματος",
+        info: "Πληροφορίες Διαμερίσματος",
+        prompt: "Παρακαλώ επέλεξε ένα διαμέρισμα.",
+        sentSuccess: "Το μήνυμά σας εστάλη επιτυχώς!",
+        noApartment: "Δεν βρέθηκε διαμέρισμα.",
+        facilitiesTitle: "Παροχές Διαμερισμάτων",
+        parkingTitle: "Χώρος στάθμευσης",
+        parkingDesc: "Ιδιωτικός χώρος στάθμευσης δωρεάν, στον χώρο του καταλύματος, δεν απαιτείται κράτηση.",
+        streetParking: "Χώρος στάθμευσης στο δρόμο",
+        internetTitle: "Ίντερνετ",
+        internetDesc: "Καλό δωρεάν WiFi 28 Mbps. Κατάλληλο για streaming HD περιεχομένου και πραγματοποίηση βιντεοκλήσεων. Πραγματοποιήθηκε έλεγχος ταχύτητας από τον οικοδεσπότη.",
+        kitchenTitle: "Κουζίνα",
+        kitchenDesc: `Προϊόντα καθαρισμού
+Εστίες
+Φούρνος
+Κουζινικά σκεύη
+Πλυντήριο ρούχων
+Ψυγείο`,
+        bedroomTitle: "Υπνοδωμάτιο",
+        bedroomDesc: `Λευκά είδη
+Ντουλάπα`,
+        bathroomTitle: "Μπάνιο",
+        bathroomDesc: `Χαρτί υγείας
+Πετσέτες
+Μπανιέρα ή ντους
+Τουαλέτα
+Στεγνωτήρας μαλλιών`,
+        livingTitle: "Σαλόνι",
+        livingDesc: `Τραπεζαρία
+Καναπές
+Καθιστικό`,
+        techTitle: "Πολυμέσα & Τεχνολογία",
+        techDesc: `Τηλεόραση επίπεδης οθόνης
+Τηλεόραση`,
+        roomFacilitiesTitle: "Παροχές Δωματίου",
+        roomFacilitiesDesc: `Πρίζα κοντά στο κρεβάτι
+Καναπές-κρεβάτι
+Απλώστρα ρούχων
+Δάπεδο με πλακάκια / μάρμαρο
+Ιδιωτική είσοδος
+Σίδερο ρούχων`,
+        outdoorTitle: "Εξωτερικοί χώροι",
+        outdoorDesc: `Ηλιόλουστη βεράντα
+Μπαλκόνι
+Βεράντα
+Κήπος`,
+        viewTitle: "Εξωτερικά & Θέα",
+        viewDesc: `Θέα στην πόλη
+Θέα στη θάλασσα
+Θέα`,
+        buildingTitle: "Χαρακτηριστικά κτηρίου",
+        buildingDesc: `Ιδιωτικό διαμέρισμα σε κτήριο`,
+        receptionTitle: "Υπηρεσίες ρεσεψιόν",
+        receptionDesc: `Γρήγορο check in/check out`,
+        miscTitle: "Διάφορα",
+        miscDesc: `Προσβάσιμο σε αναπηρικό αμαξίδιο
+Κλιματισμός
+Απαγορεύεται το κάπνισμα σε όλους τους χώρους
+Θέρμανση
+Δωμάτια / εγκαταστάσεις για ΑμεΑ
+Δωμάτια για μη καπνίζοντες`,
+        securityTitle: "Ασφάλεια & προστασία",
+        securityDesc: `Κάμερες ασφαλείας κλειστού κυκλώματος έξω από το κατάλυμα
+Πρόσβαση με κλειδί`,
+        languagesTitle: "Γλώσσες επικοινωνίας",
+        languagesDesc: `Ελληνικά
+Αγγλικά
+Κροατικά
+Σερβικά`
+      },
+      en: {
+        welcome: "Welcome to our Apartments!",
+        contact: "Contact: 6972499950 | email: georgiobin@yahoo.gr",
+        contactUs: "Contact Us",
+        name: "Name:",
+        email: "Email:",
+        message: "Message:",
+        send: "Send",
+        location: "Location",
+        photos: "Apartment Photos",
+        info: "Apartment Info",
+        prompt: "Please select an apartment.",
+        sentSuccess: "Your message has been sent successfully!",
+        noApartment: "Apartment not found.",
+        facilitiesTitle: "Apartment Facilities",
+        parkingTitle: "Parking",
+        parkingDesc: "Private free parking space on premises, no reservation required.",
+        streetParking: "Street parking",
+        internetTitle: "Internet",
+        internetDesc: "Good free WiFi 28 Mbps. Suitable for HD streaming and video calls. Speed test done by host.",
+        kitchenTitle: "Kitchen",
+        kitchenDesc: `Cleaning products
+Hobs
+Oven
+Kitchenware
+Washing machine
+Fridge`,
+        bedroomTitle: "Bedroom",
+        bedroomDesc: `Bed linen
+Wardrobe`,
+        bathroomTitle: "Bathroom",
+        bathroomDesc: `Toilet paper
+Towels
+Bathtub or shower
+Toilet
+Hair dryer`,
+        livingTitle: "Living Room",
+        livingDesc: `Dining area
+Sofa
+Seating area`,
+        techTitle: "Multimedia & Technology",
+        techDesc: `Flat-screen TV
+Television`,
+        roomFacilitiesTitle: "Room Facilities",
+        roomFacilitiesDesc: `Power socket near bed
+Sofa bed
+Clothes rack
+Tile/marble floor
+Private entrance
+Iron`,
+        outdoorTitle: "Outdoor",
+        outdoorDesc: `Sunny terrace
+Balcony
+Terrace
+Garden`,
+        viewTitle: "Outside & View",
+        viewDesc: `City view
+Sea view
+View`,
+        buildingTitle: "Building Features",
+        buildingDesc: `Private apartment in building`,
+        receptionTitle: "Reception Services",
+        receptionDesc: `Fast check in/check out`,
+        miscTitle: "Miscellaneous",
+        miscDesc: `Wheelchair accessible
+Air conditioning
+No smoking in all areas
+Heating
+Facilities for disabled guests
+Non-smoking rooms`,
+        securityTitle: "Safety & Security",
+        securityDesc: `CCTV cameras outside property
+Key access`,
+        languagesTitle: "Languages spoken",
+        languagesDesc: `Greek
+English
+Croatian
+Serbian`
+      }
+    };
+
+    // Εκκαθαρίζουμε το #apartment-details και εμφανίζουμε φωτογραφίες
+    function showPhotos(apartmentId) {
+      const apt = apartments[apartmentId];
+      const container = document.getElementById('apartment-details');
+      const facilitiesSection = document.getElementById('facilities-section');
+      facilitiesSection.style.display = 'none';  // κρύβουμε τις παροχές αν είναι ανοιχτές
+
+      if (!apt) {
+        container.innerHTML = `<p>${translations[lang].noApartment}</p>`;
+        return;
+      }
+      let html = `<h2>${translations[lang].photos} ${apartmentId}</h2>`;
+      html += '<div class="photo-gallery">';
+      apt.photos.forEach((src, i) => {
+        html += `<a href="${src}" data-lightbox="apt${apartmentId}" data-title="Apartment ${apartmentId} photo ${i+1}">
+                  <img src="${src}" alt="Apartment ${apartmentId} photo ${i+1}" style="width:150px; margin:5px; cursor:pointer; border-radius:6px;"/>
+                </a>`;
+      });
+      html += '</div>';
+      container.innerHTML = html;
     }
 
-    details.innerHTML = content;
-  }
+    // Εμφάνιση πληροφοριών διαμερίσματος
+    function showInfo(apartmentId) {
+      const apt = apartments[apartmentId];
+      const container = document.getElementById('apartment-details');
+      const facilitiesSection = document.getElementById('facilities-section');
+      facilitiesSection.style.display = 'none';
 
-  function showInfo(id) {
-    const details = document.getElementById("apartment-details");
-    let content = '';
-
-    if (id === 1) {
-      content = `
-        <h2>Πληροφορίες Διαμερίσματος 1</h2>
-        <p>Το The Sunny Apartments είναι μια εξαιρετική επιλογή για τη διαμονή σου στην Ηγουμενίτσα. Προσφέρει άνεση και ιδανική τοποθεσία.</p>
-      `;
-    } else if (id === 2) {
-      content = `
-        <h2>Πληροφορίες Διαμερίσματος 2</h2>
-        <p>Ευρύχωρο και φωτεινό διαμέρισμα με όλες τις σύγχρονες ανέσεις για άνετη διαμονή κοντά στο κέντρο και τη φύση.</p>
-      `;
+      if (!apt) {
+        container.innerHTML = `<p>${translations[lang].noApartment}</p>`;
+        return;
+      }
+      container.innerHTML = `<h2>${translations[lang].info} ${apartmentId}</h2>
+        <p>${apt.info[lang]}</p>`;
     }
 
-    details.innerHTML = content;
-  }
+    // Δεδομένα παροχών
+    const facilitiesData = {
+      el: [
+        {title: translations.el.parkingTitle, desc: translations.el.parkingDesc},
+        {title: translations.el.streetParking, desc: ""},
+        {title: translations.el.internetTitle, desc: translations.el.internetDesc},
+        {title: translations.el.kitchenTitle, desc: translations.el.kitchenDesc},
+        {title: translations.el.bedroomTitle, desc: translations.el.bedroomDesc},
+        {title: translations.el.bathroomTitle, desc: translations.el.bathroomDesc},
+        {title: translations.el.livingTitle, desc: translations.el.livingDesc},
+        {title: translations.el.techTitle, desc: translations.el.techDesc},
+        {title: translations.el.roomFacilitiesTitle, desc: translations.el.roomFacilitiesDesc},
+        {title: translations.el.outdoorTitle, desc: translations.el.outdoorDesc},
+        {title: translations.el.viewTitle, desc: translations.el.viewDesc},
+        {title: translations.el.buildingTitle, desc: translations.el.buildingDesc},
+        {title: translations.el.receptionTitle, desc: translations.el.receptionDesc},
+        {title: translations.el.miscTitle, desc: translations.el.miscDesc},
+        {title: translations.el.securityTitle, desc: translations.el.securityDesc},
+        {title: translations.el.languagesTitle, desc: translations.el.languagesDesc},
+      ],
+      en: [
+        {title: translations.en.parkingTitle, desc: translations.en.parkingDesc},
+        {title: translations.en.streetParking, desc: ""},
+        {title: translations.en.internetTitle, desc: translations.en.internetDesc},
+        {title: translations.en.kitchenTitle, desc: translations.en.kitchenDesc},
+        {title: translations.en.bedroomTitle, desc: translations.en.bedroomDesc},
+        {title: translations.en.bathroomTitle, desc: translations.en.bathroomDesc},
+        {title: translations.en.livingTitle, desc: translations.en.livingDesc},
+        {title: translations.en.techTitle, desc: translations.en.techDesc},
+        {title: translations.en.roomFacilitiesTitle, desc: translations.en.roomFacilitiesDesc},
+        {title: translations.en.outdoorTitle, desc: translations.en.outdoorDesc},
+        {title: translations.en.viewTitle, desc: translations.en.viewDesc},
+        {title: translations.en.buildingTitle, desc: translations.en.buildingDesc},
+        {title: translations.en.receptionTitle, desc: translations.en.receptionDesc},
+        {title: translations.en.miscTitle, desc: translations.en.miscDesc},
+        {title: translations.en.securityTitle, desc: translations.en.securityDesc},
+        {title: translations.en.languagesTitle, desc: translations.en.languagesDesc},
+      ]
+    };
 
-  function showFacilities() {
-    const details = document.getElementById("apartment-details");
-    details.innerHTML = `
-      <h2>Παροχές Διαμερισμάτων</h2>
-      <ul>
-        <li>Δωρεάν Wi-Fi</li>
-        <li>Κλιματισμός</li>
-        <li>Ιδιωτικό πάρκινγκ</li>
-        <li>Πλήρως εξοπλισμένη κουζίνα</li>
-        <li>Μπαλκόνι με θέα</li>
-        <li>Καθιστικό & Τηλεόραση</li>
-      </ul>
-    `;
-  }
+    // Εμφάνιση παροχών με accordion
+    function renderFacilities(language) {
+      lang = language;
+      const container = document.getElementById('facilities-accordion');
+      const title = document.getElementById('facilities-title');
+      title.textContent = translations[lang].facilitiesTitle;
 
-  function setLanguage(lang) {
-    alert("Αλλαγή γλώσσας σε: " + lang);
-    // Εδώ μπορείς αργότερα να προσθέσεις πραγματική αλλαγή περιεχομένου
-  }
-</script>
+      let html = '';
+      facilitiesData[lang].forEach(({title, desc}, idx) => {
+        html += `
+          <div class="accordion-item">
+            <div class="accordion-title" onclick="toggleAccordion(this)">${title}</div>
+            <div class="accordion-content">${desc}</div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
 
+    function toggleAccordion(el) {
+      const content = el.nextElementSibling;
+      content.classList.toggle('show');
+    }
+
+    // Εμφάνιση Παροχών (καλείται από κουμπί στο nav)
+    function showFacilities() {
+      document.getElementById('apartment-details').innerHTML = '';
+      const facilitiesSection = document.getElementById('facilities-section');
+      facilitiesSection.style.display = 'block';
+      renderFacilities(lang);
+    }
+
+    // Αλλαγή γλώσσας UI (για απλά κουμπιά)
+    function setLanguage(newLang) {
+      lang = newLang;
+
+      // Αλλάζουμε κείμενα στο header
+      document.querySelector('header h1').textContent = translations[lang].welcome;
+      document.querySelector('header p').textContent = translations[lang].contact;
+
+      // Αλλάζουμε κείμενο στο contact section
+      document.querySelector('#contact h2').textContent = translations[lang].contactUs;
+      document.querySelector('label[for="name"]').textContent = translations[lang].name;
+      document.querySelector('label[for="email"]').textContent = translations[lang].email;
+      document.querySelector('label[for="message"]').textContent = translations[lang].message;
+      document.querySelector('#contact button[type="submit"]').textContent = translations[lang].send;
+
+      // Αλλάζουμε κείμενο στο map section
+      document.querySelector('#map h2').textContent = translations[lang].location;
+
+      // Επαναφόρτωση παροχών αν είναι ορατές
+      if(document.getElementById('facilities-section').style.display === 'block'){
+        renderFacilities(lang);
+      }
+
+      // Αν δεν υπάρχει τρέχον περιεχόμενο, εμφανίζουμε μήνυμα
+      const details = document.getElementById('apartment-details');
+      if(!details.innerHTML.trim() || details.innerHTML.trim() === translations[newLang === 'el' ? 'en' : 'el'].prompt){
+        details.innerHTML = `<p>${translations[lang].prompt}</p>`;
+      }
+    }
+
+    // Αρχική ρύθμιση γλώσσας
+    window.onload = () => {
+      setLanguage('el');
+    };
+
+    // Προαιρετικά, χειρισμός φόρμας επικοινωνίας (μπορείς να το βελτιώσεις)
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Απλή απάντηση (χωρίς backend)
+      document.getElementById('form-response').textContent = translations[lang].sentSuccess;
+      this.reset();
+    });
+  </script>
 </body>
 </html>

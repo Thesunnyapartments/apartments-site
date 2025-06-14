@@ -1,102 +1,254 @@
+/* Γενικά */
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fafafa;
+  color: #333;
+  margin: 0;
+  padding: 0 15px 50px;
+  line-height: 1.6;
 }
 
+/* Header */
 header {
-  background-color: #5e4caf;
-  color: white;
-  padding: 15px;
   text-align: center;
-  margin-bottom: 20px;
+  background: #1976d2;
+  color: white;
+  padding: 20px 10px;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+header h1 {
+  margin: 0 0 5px;
+  font-weight: 700;
+}
+
+header p {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+/* Navigation buttons */
 nav {
   text-align: center;
+  margin: 25px 0;
+}
+
+nav button {
+  background-color: #2196f3;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  margin: 5px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.25s ease-in-out;
+}
+
+nav button:hover {
+  background-color: #1769aa;
+}
+
+/* Main content */
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 200px;
+}
+
+/* Φωτογραφίες (gallery) */
+.photo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.photo-gallery img {
+  border-radius: 8px;
+  box-shadow: 0 2px 7px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.photo-gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Contact section */
+#contact {
+  max-width: 600px;
+  margin: 40px auto 20px;
+  background-color: white;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+}
+
+#contact h2 {
+  margin-top: 0;
+  font-weight: 700;
+  color: #1976d2;
+  text-align: center;
   margin-bottom: 20px;
 }
-nav button {
-  margin: 5px 10px;
+
+#contact label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
 }
 
-button {
-  margin: 0 10px;
-  padding: 10px 15px;
-  font-size: 16px;
-  cursor: pointer;
+#contact input[type="text"],
+#contact input[type="email"],
+#contact textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 18px;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: vertical;
+  transition: border-color 0.2s ease;
 }
-button:hover {
-  background-color: #4CAF50;
+
+#contact input[type="text"]:focus,
+#contact input[type="email"]:focus,
+#contact textarea:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+#contact button[type="submit"] {
+  background-color: #1976d2;
   color: white;
-}
-#apartment-details {
-  background-color: white;
-  padding: 20px;
+  font-weight: 700;
+  padding: 12px 25px;
+  border: none;
   border-radius: 8px;
-  max-width: 600px;
-  margin: 0 auto;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-#apartment-details {
-  padding: 1em;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  margin-top: 1em;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  transition: background-color 0.25s ease;
 }
 
-#apartment-details img {
-  max-width: 100%;
-  border-radius: 8px;
+#contact button[type="submit"]:hover {
+  background-color: #125a9c;
+}
+
+#form-response {
+  text-align: center;
+  font-weight: 600;
+  color: green;
   margin-top: 10px;
 }
-@media (max-width: 600px) {
-  button {
-    display: block;
-    margin: 10px auto;
-  }
 
-  #apartment-details {
-    padding: 10px;
-    max-width: 95%;
-  }
-}
-.fade-in {
-  animation: fadeIn 0.5s ease-in;
+/* Map */
+#map {
+  max-width: 900px;
+  margin: 40px auto 40px;
+  text-align: center;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-#contact {
-  background: #ffffff;
-  padding: 20px;
-  margin: 30px auto;
-  max-width: 600px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+#map h2 {
+  color: #1976d2;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-#contact-form label {
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
+#map iframe {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-#contact-form input, #contact-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+/* Facilities accordion */
+#facilities-section {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 25px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
 }
 
-#contact-form button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #4CAF50;
+#facilities-section h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #1976d2;
+  font-weight: 700;
+}
+
+#lang-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#lang-buttons button {
+  background-color: #2196f3;
   color: white;
   border: none;
+  padding: 8px 16px;
+  margin: 0 6px;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
+
+#lang-buttons button:hover {
+  background-color: #1769aa;
+}
+
+/* Accordion items */
+.accordion-item {
+  border-bottom: 1px solid #ddd;
+}
+
+.accordion-title {
+  padding: 12px 15px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #e3f2fd;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.accordion-title:hover {
+  background-color: #bbdefb;
+}
+
+.accordion-content {
+  padding: 12px 20px;
+  display: none;
+  white-space: pre-line;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.accordion-content.show {
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  nav button {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+  }
+
+  #contact, #facilities-section, main {
+    padding: 15px 10px;
+    margin: 20px 10px;
+  }
+
+  .photo-gallery img {
+    width: 100px !important;
+  }
+}
+
