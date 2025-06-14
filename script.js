@@ -1,6 +1,6 @@
 const apartments = {
   1: {
-    photos: ["images/The sunny/3.jpg","images/The sunny/5.jpg","images/The sunny/6.jpg"],
+    photos: ["images/The_sunny/2.jpg","images/The_sunny/5.jpg","images/The_sunny/6.jpg"],
     info: "Διαμέρισμα 1: Κοντά στο κέντρο, πλήρως εξοπλισμένο, Wi-Fi, κουζίνα."
   },
   2: {
